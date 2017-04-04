@@ -1,0 +1,28 @@
+{
+  "rules": {
+    "jsx-quotes": [
+      2,
+      "prefer-single"
+    ],
+    "new-cap": [
+      0,
+      {
+        "capIsNewExceptions": [
+          "CSSModules",
+          "Set",
+          "Map",
+          "List",
+          "Radium"
+        ]
+      }
+    ]
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "mocha": true
+  },
+  "parser": "babel-eslint",
+  "extends": "airbnb"
+}
