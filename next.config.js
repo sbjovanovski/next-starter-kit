@@ -13,7 +13,35 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ['babel-loader', 'raw-loader', 'postcss-loader']
+                use: ['babel-loader', {
+                    loader: 'emit-file-loader',
+                    options: {
+                        name: 'dist/[path][name].[ext]'
+                    }
+                },
+                    {
+                        loader: 'raw-loader'
+                    },
+                    {
+                        loader: 'val-loader'
+                    },
+                    {
+                        loader: 'exports-loader',
+                        options: {
+                            0: 'exports[0][1]',
+                            1: 'exports.locals'
+                        }
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            minimize: true
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader'
+                    }]
             },
             {
                 test: /\.s(a|c)ss$/,
@@ -28,14 +56,6 @@ module.exports = {
                         }
                     }
                 ]
-            },
-            {
-                test: /\.(ttf|eot|svg)(\?v=[0-9].[0-9].[0-9])?$/,
-                loader: 'emit-file-loader',
-            },
-            {
-                test: /\.woff(2)?(\?v=[0-9].[0-9].[0-9])?$/,
-                loader: 'url-loader?mimetype=application/font-woff',
             }
         );
         return config
